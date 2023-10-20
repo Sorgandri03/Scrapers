@@ -5,13 +5,10 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import *
 
-
-url = 'https://jp.mercari.com/search?keyword=%E6%9C%88%E5%88%8A%E5%B0%91%E5%B9%B4%E3%82%AC%E3%83%B3%E3%82%AC%E3%83%B3%202001'
-
-
 def FindLast(url):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('headless')
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
     driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
@@ -25,8 +22,7 @@ def FindLast(url):
     name = driver.find_element(By.XPATH,'//*[@id="m74007478429"]/figure/div[2]').get_attribute("aria-label")
     price = driver.find_element(By.XPATH,'//*[@id="m74007478429"]/figure/div[3]/div/span/span[2]').text
     link = driver.find_element(By.XPATH,'//*[@id="item-grid"]/ul/li[1]/div/a').get_attribute("href")
-    print(name,"\n", price,"\n", link)
+    
     driver.close()
 
-while True:
-    FindLast(url)
+    return name,price,link
